@@ -1,0 +1,241 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="Site.master.vb" Inherits="ModernDashboard.Site" %>
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><asp:Literal ID="PageTitle" runat="server" Text="Modern Dashboard" /></title>
+
+    <!-- Bootstrap CSS -->
+    <link href="<%: ResolveUrl("~/Content/bootstrap.min.css") %>" rel="stylesheet" />
+  
+    <!-- Font Awesome CSS (CDN) -->
+    <link href="Content/all.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="<%: ResolveUrl("~/Styles/custom.css") %>" rel="stylesheet" />
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+        <%-- Page specific head content like custom CSS or JS for a particular page --%>
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+
+        <!-- Main Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top"> <%-- Removed inline style, will be handled by CSS variable --%>
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#" style="display: flex; align-items: center;">
+                    <i class="fas fa-bars me-2" id="sidebarToggle" style="cursor: pointer;"></i>
+                    <span class="ms-1">INDUS</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Hello Priyanshu</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">F Year 2025-2026</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-bell"></i>
+                                <span class="badge rounded-pill bg-danger">1</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fas fa-cog"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fas fa-sync-alt"></i></a>
+                        </li>
+                        <li class="nav-item">
+                             <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#logoutConfirmModal" title="Log Out"><i class="fas fa-sign-out-alt"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Flyout Panel Container -->
+        <div class="sidebar-flyout-container" id="sidebarFlyoutContainer">
+            <%-- Content will be dynamically injected here by JavaScript --%>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebarNav">
+            <div class="sidebar-header">
+                <input type="text" id="sidebarSearch" class="form-control form-control-sm" placeholder="Search for menu...">
+            </div>
+            <ul class="list-unstyled components" id="sidebarMenuList">
+                <%-- Dashboard --%>
+                <li>
+                    <a href="#dashboardSubmenuContent" data-bs-target="#dashboardSubmenuContent" class="nav-link has-flyout">
+                        <span><i class="fas fa-tachometer-alt me-2"></i>Dashboard</span>
+                        <i class="fas fa-chevron-right flyout-indicator-icon"></i>
+                    </a>
+                    <div class="flyout-submenu-content d-none" id="dashboardSubmenuContent">
+                        <h6 class="flyout-header">Dashboard Options</h6>
+                        <ul class="list-unstyled">
+                            <li><a class="nav-link" href="<%: ResolveUrl("~/Dashboard.aspx") %>"><i class="fas fa-angle-right me-2 opacity-50"></i>Main Dashboard</a></li>
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Production Dashboard</a></li>
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Sales Enquiry(Content-wise)</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <%-- Estimation --%>
+                <li><a class="nav-link" href="#"><span><i class="fas fa-calculator me-2"></i>Estimation</span></a></li>
+                <%-- Quote Panel --%>
+                <li><a class="nav-link" href="#"><span><i class="fas fa-file-alt me-2"></i>Quote Panel</span></a></li>
+                <%-- Internal Approval --%>
+                <li><a class="nav-link" href="#"><span><i class="fas fa-check-double me-2"></i>Internal Approval</span></a></li>
+                <%-- Price Approval --%>
+                <li><a class="nav-link" href="#"><span><i class="fas fa-tags me-2"></i>Price Approval</span></a></li>
+                <%-- Order Booking --%>
+                <li>
+                    <a href="#orderBookingSubmenuContent" data-bs-target="#orderBookingSubmenuContent" class="nav-link has-flyout">
+                        <span><i class="fas fa-book me-2"></i>Order Booking</span>
+                        <i class="fas fa-chevron-right flyout-indicator-icon"></i>
+                    </a>
+                    <div class="flyout-submenu-content d-none" id="orderBookingSubmenuContent">
+                        <h6 class="flyout-header">Order Booking Details</h6>
+                        <ul class="list-unstyled">
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Item Sealer Order Booking</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <%-- Product Catalog --%>
+                <li><a class="nav-link" href="#"><span><i class="fas fa-box-open me-2"></i>Product Catalog</span></a></li>
+                <%-- Production Work Order --%>
+                <li><a class="nav-link" href="#"><span><i class="fas fa-industry me-2"></i>Production Work Order</span></a></li>
+                <%-- Production Work Order Manual --%>
+                <li><a class="nav-link" href="#"><span><i class="fas fa-file-signature me-2"></i>Prod. Work Order Manual</span></a></li>
+                <%-- PWOContentsGang --%>
+                <li><a class="nav-link" href="#"><span><i class="fas fa-users-cog me-2"></i>PWOContentsGang</span></a></li>
+                <%-- Masters --%>
+                <li>
+                    <a href="#mastersSubmenuContent" data-bs-target="#mastersSubmenuContent" class="nav-link has-flyout">
+                        <span><i class="fas fa-cogs me-2"></i>Masters</span>
+                        <i class="fas fa-chevron-right flyout-indicator-icon"></i>
+                    </a>
+                    <div class="flyout-submenu-content d-none" id="mastersSubmenuContent">
+                        <h6 class="flyout-header">Master Configuration</h6>
+                        <ul class="list-unstyled">
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Item Masters</a></li>
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Ledger Master</a></li>
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Process Master</a></li>
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Machine Master</a></li>
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Category Master</a></li>
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Department Master</a></li>
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>User Master</a></li>
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Product Group Master</a></li>
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Warehouse Master</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <%-- Inventory --%>
+                 <li>
+                    <a href="#inventorySubmenuContent" data-bs-target="#inventorySubmenuContent" class="nav-link has-flyout">
+                        <span><i class="fas fa-boxes me-2"></i>Inventory</span>
+                        <i class="fas fa-chevron-right flyout-indicator-icon"></i>
+                    </a>
+                    <div class="flyout-submenu-content d-none" id="inventorySubmenuContent">
+                         <h6 class="flyout-header">Inventory Management</h6>
+                         <ul class="list-unstyled">
+                             <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Tool Inventory</a></li>
+                             <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Spare Part Inventory</a></li>
+                             <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Client Inventory</a></li>
+                             <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Other Items</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <%-- Scheduling --%>
+                <li><a class="nav-link" href="#"><span><i class="fas fa-calendar-alt me-2"></i>Scheduling</span></a></li>
+                <%-- Artwork Management --%>
+                <li><a class="nav-link" href="#"><span><i class="fas fa-palette me-2"></i>Artwork Management</span></a></li>
+                <%-- Pre Press --%>
+                <li><a class="nav-link" href="#"><span><i class="fas fa-print me-2"></i>Pre Press</span></a></li>
+                <%-- Production --%>
+                <li><a class="nav-link" href="#"><span><i class="fas fa-microchip me-2"></i>Production</span></a></li>
+                <%-- Outsource --%>
+                <li><a class="nav-link" href="#"><span><i class="fas fa-truck-loading me-2"></i>Outsource</span></a></li>
+                <%-- Work Order Conversion --%>
+                <li><a class="nav-link" href="#"><span><i class="fas fa-exchange-alt me-2"></i>Work Order Conversion</span></a></li>
+                <%-- Quality Control --%>
+                <li><a class="nav-link" href="#"><span><i class="fas fa-check-circle me-2"></i>Quality Control</span></a></li>
+                <%-- Dispatch --%>
+                <li><a class="nav-link" href="#"><span><i class="fas fa-shipping-fast me-2"></i>Dispatch</span></a></li>
+                <%-- Machine Maintenance --%>
+                <li><a class="nav-link" href="#"><span><i class="fas fa-tools me-2"></i>Machine Maintenance</span></a></li>
+                <%-- Settings --%>
+                <li>
+                    <a href="#settingsSubmenuContent" data-bs-target="#settingsSubmenuContent" class="nav-link has-flyout">
+                        <span><i class="fas fa-sliders-h me-2"></i>Settings</span>
+                        <i class="fas fa-chevron-right flyout-indicator-icon"></i>
+                    </a>
+                    <div class="flyout-submenu-content d-none" id="settingsSubmenuContent">
+                        <h6 class="flyout-header">System Settings</h6>
+                        <ul class="list-unstyled">
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>RM QC Parameter Setting</a></li>
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Break Down Type Master</a></li>
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Client Wise Priting Rate Setting</a></li>
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Client Wise Operation Rate Settings</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div> <!-- End Sidebar -->
+
+        <!-- Page Content Wrapper -->
+        <div class="page-content-wrapper" id="pageContentWrapper">
+            <div class="main-content-area" style="padding-top: var(--navbar-height-value, 56px); min-height: calc(100vh - var(--navbar-height-value, 56px));">
+                <%-- Note: using CSS variable for padding-top if JS updates it. Defaulting to 56px. --%>
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                    <%-- Page specific content will go here --%>
+                </asp:ContentPlaceHolder>
+            </div>
+            <%-- Footer (optional) --%>
+      
+           </div> <!-- End Page Content Wrapper -->
+            <div class="modal fade modern-logout-modal" id="logoutConfirmModal" tabindex="-1" aria-labelledby="logoutConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logoutConfirmModalLabel">
+                    <i class="fas fa-sign-out-alt me-2 text-danger"></i>Log Out!
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="logout-icon-wrapper mb-3">
+                    <i class="fas fa-user-circle fa-3x text-primary"></i>
+                </div>
+                <p class="lead mb-1">Hi, <strong id="logoutUserName">Admin</strong>!</p>
+                <p>Do you really want to log out?</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-outline-secondary btn-modern-no" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>No
+                </button>
+                <asp:Button ID="btnConfirmLogout" runat="server" Text="Yes, Log Out" CssClass="btn btn-danger btn-modern-yes" OnClick="btnConfirmLogout_Click" />
+                <%-- We'll add OnClick for server-side logout later --%>
+            </div>
+        </div>
+    </div>
+</div>
+    </form> <%-- End of form1 --%>
+    
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
+    <!-- Custom JS -->
+    <script src="<%: ResolveUrl("~/Scripts/custom.js") %>"></script>
+   
+    <asp:ContentPlaceHolder ID="ScriptsPlaceHolder" runat="server">
+        <%-- Page specific scripts can go here --%>
+    </asp:ContentPlaceHolder>
+</body>
+</html>
+
