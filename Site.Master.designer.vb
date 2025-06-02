@@ -50,15 +50,6 @@ Partial Public Class Site
     Protected WithEvents MainContent As Global.System.Web.UI.WebControls.ContentPlaceHolder
 
     '''<summary>
-    '''btnConfirmLogout control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnConfirmLogout As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
     '''ScriptsPlaceHolder control.
     '''</summary>
     '''<remarks>

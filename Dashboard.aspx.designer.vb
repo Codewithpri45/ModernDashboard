@@ -75,31 +75,4 @@ Partial Public Class Dashboard
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lbtnPrint As Global.System.Web.UI.WebControls.LinkButton
-
-    '''<summary>
-    '''gvOnTimeDeliveries control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents gvOnTimeDeliveries As Global.System.Web.UI.WebControls.GridView
-
-    '''<summary>
-    '''gvPendingRequisitions control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents gvPendingRequisitions As Global.System.Web.UI.WebControls.GridView
-
-    '''<summary>
-    '''gvPendingPurchaseOrders control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents gvPendingPurchaseOrders As Global.System.Web.UI.WebControls.GridView
 End Class
