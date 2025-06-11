@@ -54,7 +54,6 @@
                                 <li><a class="dropdown-item" href="#">Settings</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <!-- DIRECT logout without modal, goes to Dashboard.aspx -->
                                     <a class="dropdown-item text-danger" href="CompanyLogin.aspx" >
                                         <i class="fas fa-sign-out-alt me-2"></i>Logout
                                     </a>
@@ -67,78 +66,67 @@
             </div>
         </nav>
 
-        <!-- Flyout Panel Container -->
-        <div class="sidebar-flyout-container" id="sidebarFlyoutContainer"></div>
         <!-- Sidebar -->
-       <div class="sidebar" id="sidebarNav">
-    <div class="sidebar-header d-flex align-items-center justify-content-between">
-        <input type="text" id="sidebarSearch" class="form-control form-control-sm" placeholder="Search for menu..">
-        <button type="button" id="sidebarCloseBtn" aria-label="Close" class="sidebar-close-btn">&times;</button>
-    </div>
-    <ul class="list-unstyled components" id="sidebarMenuList">
-        <!-- Add all your menu and submenu structure here. Example below: -->
-        <li><a class="nav-link" href="Dashboard.aspx"><span>Dashboard</span></a></li>
-        <li><a class="nav-link" href="#"><span>Sales Enquiry(Content-wise)</span></a></li>
-        <li><a class="nav-link" href="#"><span>Estimation</span></a></li>
-        <li><a class="nav-link" href="#"><span>Quote Panel</span></a></li>
-        <li><a class="nav-link" href="#"><span>Internal Approval</span></a></li>
-        <li><a class="nav-link" href="#"><span>Price Approval</span></a></li>
-        <!-- ... (add rest of your static links in order) ... -->
-        <li>
-            <a href="#mastersSubmenuContent" data-bs-target="#mastersSubmenuContent" class="nav-link has-flyout">
-                <span>Masters</span>
-                <i class="fas fa-chevron-right flyout-indicator-icon"></i>
-            </a>
-            <div class="flyout-submenu-content d-none" id="mastersSubmenuContent">
-                <ul class="list-unstyled">
-                    <!-- Sub items ... -->
-                    <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Item Masters</a></li>
-                    <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Ledger Master</a></li>
-                    <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Machine Master</a></li>
-                    <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Process Master</a></li>
-                    <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Category Master</a></li>
-                    <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Department Master</a></li>
-                    <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>User Master</a></li>
-
-                    <!-- ...etc... -->
-                     <!--<li><a class="nav-link" href="#"><i class="fas fa-circle fa-xs me-2" style="color:#00bcd4;"></i>Client Wise Operation Rate Settings</a></li>
-                    <li><a class="nav-link" href="#"><i class="fas fa-circle fa-xs me-2" style="color:#8c8c8c;"></i>Maintenance Services</a></li>-->
-                </ul>
+        <div class="sidebar" id="sidebarNav">
+            <div class="sidebar-header d-flex align-items-center justify-content-between">
+                <input type="text" id="sidebarSearch" class="form-control form-control-sm" placeholder="Search for menu...">
+                <button type="button" id="sidebarCloseBtn" aria-label="Close" class="sidebar-close-btn">&times;</button>
             </div>
-        </li>
-        <!-- Repeat this pattern for other menu items with flyouts -->
-        <li>
-            <a href="#inventorySubmenuContent" data-bs-target="#inventorySubmenuContent" class="nav-link has-flyout">
-                <span>Inventory</span>
-                <i class="fas fa-chevron-right flyout-indicator-icon"></i>
-            </a>
-            <div class="flyout-submenu-content d-none" id="inventorySubmenuContent">
-                <ul class="list-unstyled">
-                    <li><a class="nav-link" href="#">Tool Inventory</a></li>
-                    <li><a class="nav-link" href="#">Spare Part Inventory</a></li>
-                    <li><a class="nav-link" href="#">Client Inventory</a></li>
-                </ul>
-            </div>
-        </li>
-        <!-- Add all the other items from your screenshot: Scheduling, Artwork Management, etc. -->
-        <li><a class="nav-link" href="#">Scheduling</a></li>
-        <li><a class="nav-link" href="#">Artwork Management</a></li>
-        <li><a class="nav-link" href="#">Pre Press</a></li>
-        <li><a class="nav-link" href="#">Production</a></li>
-        <li><a class="nav-link" href="#">Outsource</a></li>
-        <li><a class="nav-link" href="#">Work Order Conversion</a></li>
-        <li><a class="nav-link" href="#">Quality Control</a></li>
-        <li><a class="nav-link" href="#">Dispatch</a></li>
-        <li><a class="nav-link" href="#">Machine Maintenance</a></li>
-        <li><a class="nav-link" href="#">Settings</a></li>
-        <li><a class="nav-link" href="#">Admin</a></li>
-        <li><a class="nav-link" href="#">Export Expenses</a></li>
-        <li><a class="nav-link" href="#">Gate Pass-Entry</a></li>
-        <li><a class="nav-link" href="#">MIS</a></li>
-    </ul>
-</div>
-<div class="sidebar-flyout-container" id="sidebarFlyoutContainer"></div>
-<div id="sidebarOverlay"></div>
+            <ul class="list-unstyled components" id="sidebarMenuList">
+                <li><a class="nav-link" href="Dashboard.aspx"><span>Dashboard</span></a></li>
+                <li><a class="nav-link" href="#"><span>Sales Enquiry(Content-wise)</span></a></li>
+                <li><a class="nav-link" href="#"><span>Estimation</span></a></li>
+                <li><a class="nav-link" href="#"><span>Quote Panel</span></a></li>
+                <li><a class="nav-link" href="#"><span>Internal Approval</span></a></li>
+                <li><a class="nav-link" href="#"><span>Price Approval</span></a></li>
+                <li>
+                    <a href="#mastersSubmenuContent" data-bs-target="#mastersSubmenuContent" class="nav-link has-flyout">
+                        <span>Masters</span>
+                        <i class="fas fa-chevron-right flyout-indicator-icon"></i>
+                    </a>
+                    <div class="flyout-submenu-content d-none" id="mastersSubmenuContent">
+                        <ul class="list-unstyled">
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Item Masters</a></li>
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Ledger Master</a></li>
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Machine Master</a></li>
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Process Master</a></li>
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Category Master</a></li>
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Department Master</a></li>
+                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>User Master</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="#inventorySubmenuContent" data-bs-target="#inventorySubmenuContent" class="nav-link has-flyout">
+                        <span>Inventory</span>
+                        <i class="fas fa-chevron-right flyout-indicator-icon"></i>
+                    </a>
+                    <div class="flyout-submenu-content d-none" id="inventorySubmenuContent">
+                        <ul class="list-unstyled">
+                            <li><a class="nav-link" href="#">Tool Inventory</a></li>
+                            <li><a class="nav-link" href="#">Spare Part Inventory</a></li>
+                            <li><a class="nav-link" href="#">Client Inventory</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a class="nav-link" href="#">Scheduling</a></li>
+                <li><a class="nav-link" href="#">Artwork Management</a></li>
+                <li><a class="nav-link" href="#">Pre Press</a></li>
+                <li><a class="nav-link" href="#">Production</a></li>
+                <li><a class="nav-link" href="#">Outsource</a></li>
+                <li><a class="nav-link" href="#">Work Order Conversion</a></li>
+                <li><a class="nav-link" href="#">Quality Control</a></li>
+                <li><a class="nav-link" href="#">Dispatch</a></li>
+                <li><a class="nav-link" href="#">Machine Maintenance</a></li>
+                <li><a class="nav-link" href="#">Settings</a></li>
+                <li><a class="nav-link" href="#">Admin</a></li>
+                <li><a class="nav-link" href="#">Export Expenses</a></li>
+                <li><a class="nav-link" href="#">Gate Pass-Entry</a></li>
+                <li><a class="nav-link" href="#">MIS</a></li>
+            </ul>
+        </div>
+        <div class="sidebar-flyout-container" id="sidebarFlyoutContainer"></div>
+        <div id="sidebarOverlay"></div>
 
         <!-- Page Content Wrapper -->
         <div class="page-content-wrapper" id="pageContentWrapper">
@@ -146,7 +134,7 @@
                 <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
             </div>
         </div>
-          <!-- Modern Footer -->
+        <!-- Modern Footer -->
         <footer class="modern-footer mt-auto py-3">
             <div class="container-xxl d-flex flex-column flex-md-row align-items-center justify-content-between">
                 <div class="footer-brand d-flex align-items-center gap-2">
@@ -164,28 +152,9 @@
                 </div>
             </div>
         </footer>
-        <!-- Remove Logout Modal (no confirmation needed) -->
         <script src="<%: ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
         <script src="<%: ResolveUrl("~/Scripts/custom.js") %>"></script>
         <asp:ContentPlaceHolder ID="ScriptsPlaceHolder" runat="server"></asp:ContentPlaceHolder>
-        <script>
-    Listener('transitionend', function () {
-                    if (!mainSidebar.classList.contains('active')) {
-                        hideFlyout();
-                    }
-                });
-                // Hide flyout if clicking outside it and sidebar menu
-                document.addEventListener('mousedown', function (event) {
-                    if (
-                        flyoutContainer.classList.contains('active') &&
-                        !flyoutContainer.contains(event.target) &&
-                        !mainSidebar.contains(event.target)
-                    ) {
-                        hideFlyout();
-                    }
-                });S
-            });
-        </script>
     </form>
 </body>
 </html>
