@@ -1,4 +1,4 @@
-﻿' In Site.master.vb
+﻿
 Partial Class Site
     Inherits System.Web.UI.MasterPage
 

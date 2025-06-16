@@ -1,4 +1,4 @@
-﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="Site.master.vb" Inherits="ModernDashboard.Site" %>
+﻿﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="Site.master.vb" Inherits="ModernDashboard.Site" %>
 <!DOCTYPE html>
 <html>
 <head runat="server">

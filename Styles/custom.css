@@ -1,4 +1,5 @@
-﻿:root {
+﻿
+:root {
     --primary-color: #2d6cdf;
     --primary-dark: #1c3879;
     --accent-color: #19e6c1;
@@ -248,10 +249,6 @@ body {
     transition: opacity 0.23s cubic-bezier(.82,-0.09,.39,1.32), top 0.24s, left 0.24s;
     pointer-events: none;
     box-shadow: 0 8px 32px #2d6cdf33, 0 1.5px 0 #19e6c1;
-    overflow-y: auto !important;
-    max-height: 85vh;
-    scrollbar-width: thin;
-    scrollbar-color: #19e6c1 #e5eaf5;
 }
 
     .sidebar-flyout-container.active {
@@ -271,15 +268,6 @@ body {
         box-shadow: 0 8px 32px #2d6cdf33, 0 1.5px 0 #19e6c1;
         border-radius: 0 1.7em 1.7em 0 / 0 1.2em 1.2em 0;
         margin-right: 2px;
-    }
-
-    .sidebar-flyout-container::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    .sidebar-flyout-container::-webkit-scrollbar-thumb {
-        background: #19e6c1;
-        border-radius: 3px;
     }
 
     .sidebar-flyout-container ul {

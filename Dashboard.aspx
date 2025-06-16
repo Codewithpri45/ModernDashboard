@@ -335,4 +335,3 @@
         </div>
     </div>
 </asp:Content>
-<asp:Content ID="ContentScripts" ContentPlaceHolderID="ScriptsPlaceHolder" runat="server"></asp:Content>

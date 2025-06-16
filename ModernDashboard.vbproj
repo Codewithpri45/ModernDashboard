@@ -146,6 +146,7 @@
     <Content Include="Scripts\fontawesome\solid.min.js" />
     <Content Include="Scripts\fontawesome\v4-shims.js" />
     <Content Include="Scripts\fontawesome\v4-shims.min.js" />
+    <Content Include="ShipperCarton.aspx" />
     <Content Include="Styles\custom.css" />
     <Content Include="Styles\dashboard-modern.css" />
     <Content Include="Styles\login-modern.css" />
@@ -187,6 +188,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ShipperCarton.aspx.designer.vb">
+      <DependentUpon>ShipperCarton.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ShipperCarton.aspx.vb">
+      <DependentUpon>ShipperCarton.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Site.Master.designer.vb">
       <DependentUpon>Site.Master</DependentUpon>
