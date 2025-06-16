@@ -1,4 +1,4 @@
-﻿﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="Site.master.vb" Inherits="ModernDashboard.Site" %>
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="Site.master.vb" Inherits="ModernDashboard.Site" %>
 <!DOCTYPE html>
 <html>
 <head runat="server">
@@ -70,7 +70,7 @@
         <div class="sidebar" id="sidebarNav">
             <div class="sidebar-header d-flex align-items-center justify-content-between">
                 <input type="text" id="sidebarSearch" class="form-control form-control-sm" placeholder="Search for menu...">
-                <button type="button" id="sidebarCloseBtn" aria-label="Close" class="sidebar-close-btn">&times;</button>
+                <button type="button" id="sidebarCloseBtn" aria-label="Close" class="sidebar-close-btn">×</button>
             </div>
             <ul class="list-unstyled components" id="sidebarMenuList">
                 <li><a class="nav-link" href="Dashboard.aspx"><span>Dashboard</span></a></li>
@@ -86,7 +86,17 @@
                     </a>
                     <div class="flyout-submenu-content d-none" id="mastersSubmenuContent">
                         <ul class="list-unstyled">
-                            <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Item Masters</a></li>
+                            <li>
+                                <a href="#itemMastersSubmenuContent" data-bs-target="#itemMastersSubmenuContent" class="nav-link has-flyout">
+                                    <i class="fas fa-angle-right me-2 opacity-50"></i>Item Masters
+                                    <i class="fas fa-chevron-right flyout-indicator-icon"></i>
+                                </a>
+                                <div class="flyout-submenu-content d-none" id="itemMastersSubmenuContent">
+                                    <ul class="list-unstyled">
+                                        <li><a class="nav-link" href="ShipperCarton.aspx"><i class="fas fa-angle-right me-2 opacity-50"></i>Shipper Carton</a></li>
+                                    </ul>
+                                </div>
+                            </li>
                             <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Ledger Master</a></li>
                             <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Machine Master</a></li>
                             <li><a class="nav-link" href="#"><i class="fas fa-angle-right me-2 opacity-50"></i>Process Master</a></li>
@@ -147,8 +157,8 @@
                     <a href="#" class="footer-link"><i class="fab fa-github"></i> GitHub</a>
                 </div>
                 <div class="footer-copyright mt-2 mt-md-0 text-muted small">
-                    &copy; <span id="footerYear"><script>document.write(new Date().getFullYear())</script></span>
-                    INDUS. Made with <span style="color:#ff5263;">&hearts;</span> by Codewithpri45
+                    © <span id="footerYear"><script>document.write(new Date().getFullYear())</script></span>
+                    INDUS. Made with <span style="color:#ff5263;">♥</span> by Codewithpri45
                 </div>
             </div>
         </footer>

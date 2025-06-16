@@ -3,7 +3,6 @@
     const mainSidebar = document.getElementById('sidebarNav');
     const pageContentWrapper = document.getElementById('pageContentWrapper');
     const sidebarMenuList = document.getElementById('sidebarMenuList');
-    const flyoutContainer = document.getElementById('sidebarFlyoutContainer');
     const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
     const sidebarSearch = document.getElementById('sidebarSearch');
     let overlay = document.getElementById('sidebarOverlay');
@@ -13,7 +12,7 @@
         document.body.appendChild(overlay);
     }
 
-    let currentlyOpenFlyoutTargetId = null;
+    let flyoutStates = []; // Track open flyouts at each level
 
     function openSidebar() {
         mainSidebar.classList.add('active');
@@ -27,42 +26,113 @@
         pageContentWrapper.classList.remove('active');
         overlay.style.opacity = "0";
         setTimeout(() => { overlay.style.display = "none" }, 300);
-        hideFlyout();
+        hideAllFlyouts();
         document.body.style.overflow = '';
     }
 
-    function showFlyout(targetContentId, anchorElement) {
+    function createFlyoutContainer(level) {
+        let flyoutContainer = document.getElementById(`sidebarFlyoutContainer-level-${level}`);
+        if (!flyoutContainer) {
+            flyoutContainer = document.createElement('div');
+            flyoutContainer.id = `sidebarFlyoutContainer-level-${level}`;
+            flyoutContainer.className = 'sidebar-flyout-container';
+            document.body.appendChild(flyoutContainer);
+        }
+        return flyoutContainer;
+    }
+
+    function showFlyout(targetContentId, anchorElement, level) {
+        const flyoutContainer = createFlyoutContainer(level);
         const contentSourceDiv = document.getElementById(targetContentId);
         if (contentSourceDiv && flyoutContainer) {
+            // Clear this level's flyout content
             flyoutContainer.innerHTML = '';
             const clonedContent = contentSourceDiv.cloneNode(true);
             clonedContent.classList.remove('d-none');
+            clonedContent.classList.add(`flyout-level-${level}`);
             flyoutContainer.appendChild(clonedContent);
 
-            // Position flyout to the right of the anchorElement
+            // Get anchor's viewport position
             const anchorRect = anchorElement.getBoundingClientRect();
-            flyoutContainer.style.top = `${anchorRect.top}px`;
-            flyoutContainer.style.left = `${anchorRect.right}px`;
+
+            // Use absolute positioning relative to viewport
+            const absoluteTop = anchorRect.top;
+            const absoluteLeft = anchorRect.right;
+
+            // Position flyout
+            flyoutContainer.style.top = `${absoluteTop}px`;
+            flyoutContainer.style.left = `${absoluteLeft}px`;
             flyoutContainer.classList.add('active');
-            currentlyOpenFlyoutTargetId = targetContentId;
+
+            // Update flyout state
+            flyoutStates[level - 1] = { targetId: targetContentId, container: flyoutContainer };
+
+            // Attach click events to any nested has-flyout links in this flyout
+            const nestedFlyoutLinks = clonedContent.querySelectorAll('a.nav-link.has-flyout');
+            nestedFlyoutLinks.forEach(link => {
+                link.addEventListener('click', (e) => handleFlyoutClick(e, level + 1));
+            });
         }
     }
 
-    function hideFlyout() {
-        if (flyoutContainer && flyoutContainer.classList.contains('active')) {
-            flyoutContainer.classList.remove('active');
-            flyoutContainer.innerHTML = '';
+    function hideFlyout(level) {
+        const flyoutState = flyoutStates[level - 1];
+        if (flyoutState && flyoutState.container) {
+            flyoutState.container.classList.remove('active');
+            flyoutState.container.innerHTML = '';
         }
-        currentlyOpenFlyoutTargetId = null;
-        // Remove active highlight
-        const activeParents = sidebarMenuList.querySelectorAll('li.active-flyout-parent');
+        flyoutStates[level - 1] = null;
+        const activeParents = document.querySelectorAll(`.flyout-level-${level} li.active-flyout-parent`);
         activeParents.forEach(li => li.classList.remove('active-flyout-parent'));
-        // Also reset all chevrons
-        const allChevrons = sidebarMenuList.querySelectorAll('.flyout-indicator-icon');
+        const chevrons = document.querySelectorAll(`.flyout-level-${level} .flyout-indicator-icon`);
+        chevrons.forEach(icon => icon.classList.remove('rotated'));
+    }
+
+    function hideAllFlyouts() {
+        flyoutStates.forEach((_, index) => hideFlyout(index + 1));
+        flyoutStates = [];
+        const activeParents = document.querySelectorAll('li.active-flyout-parent');
+        activeParents.forEach(li => li.classList.remove('active-flyout-parent'));
+        const allChevrons = document.querySelectorAll('.flyout-indicator-icon');
         allChevrons.forEach(icon => icon.classList.remove('rotated'));
     }
 
-    // Sidebar open/close
+    function handleFlyoutClick(e, level = 1) {
+        e.preventDefault();
+        const link = e.currentTarget;
+        const parentLi = link.closest('li');
+        const chevronIcon = link.querySelector('.flyout-indicator-icon');
+        const targetFlyoutContentId = link.getAttribute('data-bs-target').substring(1);
+
+        for (let i = level; i <= flyoutStates.length; i++) {
+            hideFlyout(i);
+        }
+
+        const currentFlyout = flyoutStates[level - 1];
+        if (currentFlyout && currentFlyout.targetId === targetFlyoutContentId) {
+            hideFlyout(level);
+            flyoutStates[level - 1] = null;  // clear state fully
+            parentLi.classList.remove('active-flyout-parent');
+            if (chevronIcon) chevronIcon.classList.remove('rotated');
+            return; // exit function after hiding
+        }
+
+        else {
+            const sameLevelLinks = link.closest('.flyout-submenu-content')
+                ? link.closest('.flyout-submenu-content').querySelectorAll('a.nav-link.has-flyout')
+                : sidebarMenuList.querySelectorAll(':scope > li > a.nav-link.has-flyout');
+            sameLevelLinks.forEach(l => {
+                const icon = l.querySelector('.flyout-indicator-icon');
+                if (icon) icon.classList.remove('rotated');
+                l.closest('li').classList.remove('active-flyout-parent');
+            });
+
+            parentLi.classList.add('active-flyout-parent');
+            showFlyout(targetFlyoutContentId, link, level);
+            if (chevronIcon) chevronIcon.classList.add('rotated');
+        }
+    }
+
     if (sidebarToggle) {
         sidebarToggle.addEventListener('click', function (e) {
             e.stopPropagation();
@@ -87,82 +157,47 @@
             mainSidebar.classList.contains('active') &&
             !mainSidebar.contains(event.target) &&
             !sidebarToggle.contains(event.target) &&
-            !flyoutContainer.contains(event.target)
+            !flyoutStates.some(state => state && state.container.contains(event.target))
         ) {
             closeSidebar();
         }
     });
 
-    // Sidebar menu logic
     if (sidebarMenuList) {
-        const mainLevelLinks = sidebarMenuList.querySelectorAll(':scope > li > a.nav-link');
+        const mainLevelLinks = sidebarMenuList.querySelectorAll('a.nav-link.has-flyout');
         mainLevelLinks.forEach(link => {
-            link.addEventListener('click', function (e) {
-                const parentLi = this.closest('li');
-                const chevronIcon = this.querySelector('.flyout-indicator-icon');
-                // Reset all chevrons first
-                mainLevelLinks.forEach(l => {
-                    const icon = l.querySelector('.flyout-indicator-icon');
-                    if (icon) icon.classList.remove('rotated');
-                });
+            link.addEventListener('click', (e) => handleFlyoutClick(e, 1));
+        });
 
-                if (!this.classList.contains('has-flyout')) {
-                    // Direct link, close sidebar
-                    closeSidebar();
-                    return;
-                }
-
-                // Has flyout
-                e.preventDefault();
-                const targetFlyoutContentId = this.getAttribute('data-bs-target').substring(1);
-
-                if (
-                    parentLi.classList.contains('active-flyout-parent') &&
-                    currentlyOpenFlyoutTargetId === targetFlyoutContentId
-                ) {
-                    hideFlyout();
-                    parentLi.classList.remove('active-flyout-parent');
-                    // Reset chevron for this
-                    if (chevronIcon) chevronIcon.classList.remove('rotated');
-                } else {
-                    // Remove highlight from others
-                    mainLevelLinks.forEach(l => l.closest('li').classList.remove('active-flyout-parent'));
-                    parentLi.classList.add('active-flyout-parent');
-                    showFlyout(targetFlyoutContentId, this);
-
-                    // Rotate chevron for this
-                    if (chevronIcon) chevronIcon.classList.add('rotated');
-                }
+        const directLinks = sidebarMenuList.querySelectorAll('a.nav-link:not(.has-flyout)');
+        directLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                closeSidebar();
             });
         });
     }
 
-    // Hide flyout if sidebar closes
     mainSidebar.addEventListener('transitionend', function () {
         if (!mainSidebar.classList.contains('active')) {
-            hideFlyout();
+            hideAllFlyouts();
         }
     });
 
-    // Hide flyout if clicking outside it and sidebar menu
     document.addEventListener('mousedown', function (event) {
         if (
-            flyoutContainer.classList.contains('active') &&
-            !flyoutContainer.contains(event.target) &&
-            !mainSidebar.contains(event.target)
+            !mainSidebar.contains(event.target) &&
+            !flyoutStates.some(state => state && state.container.contains(event.target))
         ) {
-            hideFlyout();
+            hideAllFlyouts();
         }
     });
 
-    // Sidebar Search Functionality
     if (sidebarSearch && sidebarMenuList) {
         sidebarSearch.addEventListener('keyup', function () {
             const filter = sidebarSearch.value.trim().toUpperCase();
             const mainLis = sidebarMenuList.querySelectorAll(':scope > li');
 
             mainLis.forEach(li => {
-                // Check main link text
                 const mainAnchor = li.querySelector('a.nav-link');
                 let mainText = mainAnchor ? (mainAnchor.textContent || mainAnchor.innerText).trim() : "";
                 let matchFound = false;
@@ -171,7 +206,6 @@
                     matchFound = true;
                 }
 
-                // If not found in main, check flyout submenu items
                 if (!matchFound && mainAnchor && mainAnchor.classList.contains('has-flyout')) {
                     const flyoutContentId = mainAnchor.getAttribute('data-bs-target').substring(1);
                     const flyoutContentDiv = document.getElementById(flyoutContentId);
